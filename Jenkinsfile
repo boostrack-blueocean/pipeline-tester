@@ -33,5 +33,10 @@ pipeline {
         )
       }
     }
+    stage('package') {
+      steps {
+        echo 'package'
+      }
+    }
   }
 }
