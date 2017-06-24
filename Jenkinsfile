@@ -15,6 +15,8 @@ pipeline {
                 sh 'pwd'
                 sh 'cat requirements.txt'
                 sh 'java -version'
+                sh 'gradle -version'
+                sh 'terraform -version'
                 //sh 'pip install -r requirements.txt'
             }
         }
