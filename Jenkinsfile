@@ -1,43 +1,138 @@
-// A Declarative Pipeline is defined within a 'pipeline' block.
-pipeline {
+// This is the full syntax for Jenkins Declarative Pipelines as of version 0.8.1.
 
-  // agent defines where the pipeline will run.
+pipeline {
   agent {
-    // This also could have been 'agent any' - that has the same meaning.
-    label ""
-    // Other possible built-in agent types are 'agent none', for not running the
-    // top-level on any agent (which results in you needing to specify agents on
-    // each stage and do explicit checkouts of scm in those stages), 'docker',
-    // and 'dockerfile'.
+    docker {
+      image "maven:3-alpine"
+//      label "docker-nodes"
+      args "-v /tmp:/tmp"
+    }
   }
+//  agent {
+//    dockerfile {
+//      filename "someOtherDockerfile"
+//      label "docker-nodes"
+//      args "-v /tmp:/tmp"
+//    }
+//  }
   
-  // The tools directive allows you to automatically install tools configured in
-  // Jenkins - note that it doesn't work inside Docker containers currently.
-  tools {
-    // Here we have pairs of tool symbols (not all tools have symbols, so if you
-    // try to use one from a plugin you've got installed and get an error and the 
-    // tool isn't listed in the possible values, open a JIRA against that tool!)
-    // and installations configured in your Jenkins master's tools configuration.
-    //jdk "jdk8"
-    // Uh-oh, this is going to cause a validation issue! There's no configured
-    // maven tool named "mvn3.3.8"!
-    maven "mvn3.5.0"
-  }
-  
+  // Environment
   environment {
-    // Environment variable identifiers need to be both valid bash variable
-    // identifiers and valid Groovy variable identifiers. If you use an invalid
-    // identifier, you'll get an error at validation time.
-    // Right now, you can't do more complicated Groovy expressions or nesting of
-    // other env vars in environment variable values, but that will be possible
-    // when https://issues.jenkins-ci.org/browse/JENKINS-41748 is merged and
-    // released.
-    FOO = "BAR"
+    FOO = "bar"
+    OTHER = "${FOO}baz"
+//    SOME_CREDENTIALS = credentials('some-id')
+  }
+  
+  // Tools - only works when *not* on docker or dockerfile agent
+  tools {
+    // Symbol for tool type and then name of configured tool installation
+    maven "mvn3.5.0"
+//    jdk "jdk8"
+  }
+  
+  options {
+    // General Jenkins job properties
+    buildDiscarder(logRotator(numToKeepStr:'1'))
+    // Declarative-specific options
+    skipDefaultCheckout()
+    // "wrapper" steps that should wrap the entire build execution
+    timestamps()
+    timeout(time: 5, unit: 'MINUTES')
+  }
+  
+  triggers {
+    cron('@daily')
+  }
+  
+  // Access parameters with 'params.PARAM_NAME' - that'll get you default values too.
+  parameters {
+    booleanParam(defaultValue: true, description: '', name: 'flag')
+    // Newer core versions support "stringParam" as well
+    string(defaultValue: '', description: '', name: 'SOME_STRING')
   }
   
   stages {
-    // At least one stage is required.
     stage("first stage") {
+      // All sections within stage other than steps are optional.
+      environment {
+        // Overrides or adds to the existing environment
+        FOO = "notBar"
+      }
+      tools {
+        // Overrides tools of the same type defined globally
+        maven "mvn3.5.0"
+      }
+//      agent {
+//        // Overrides the top-level agent. "agent none" at the stage level does nothing.
+//        label "some-other-label"
+//      }
+      
+      // Conditional execution of this stage - only run this stage if the when condition is true.
+      when {
+        // One and only one condition is allowed.
+        
+        // Only run if the branch matches this Ant-style pattern
+        branch "master"
+        
+        // Only run if the environment contains this given variable name with this given value
+        environment name: "FOO", value: "notBar"
+        
+        // Only run if this Scripted Pipeline expression doesn't return false or null
+        expression {
+          echo "You can run any Pipeline steps in here"
+          return "foo" == "bar"
+        }
+      }
+      
+      // Runs at the end of the stage, depending on whether the conditions are met.
+      post {
+        // always means, well, always run.
+        always {
+          echo "Hi there"
+        }
+        // changed means when the build status is different than the previous build's status.
+        changed {
+          echo "I'm different"
+        }
+        // success, failure, unstable all run if the current build status is successful, failed, or unstable, respectively
+        success {
+          echo "I succeeded"
+          archive "**/*"
+        }
+      }
+      
+      // steps is required and is where you put your stage's actual work
+      steps {
+        echo "I'm doing things, I guess."
+        retry(5) {
+          echo "Keep trying this if it fails up to 5 times"
+        }
+        
+        // the script block allows you to run any arbitrary Pipeline script, even if it doesn't fit the Declarative subset.
+        script {
+          if ("sky" == "blue") {
+            echo "You can't actually do loops or if statements etc in Declarative unless you're in a script block!"
+          }
+        }
+      }
+    }
+    
+    stage("second stage") {
+      steps {
+        // You can only use the parallel step if it's the *only* step in the stage.
+        parallel(
+          firstBlock: {
+            echo "I'm on one parallel block"
+          },
+          secondBlock: {
+            echo "I'm on the other block"
+          }
+        )
+      }
+    }
+    
+    
+    stage("last stage") {
       // Every stage must have a steps block containing at least one step.
       steps {
         // You can use steps that take another block of steps as an argument,
@@ -54,123 +149,21 @@ pipeline {
         }
       }
       
-      // Post can be used both on individual stages and for the entire build.
-      post {
-        success {
-          echo "Only when we haven't failed running the first stage"
-        }
-        
-        failure {
-          echo "Only when we fail running the first stage."
-        }
-      }
-    }
-    
-    stage('second stage') {
-      // You can override tools, environment and agent on each stage if you want.
-      tools {
-        // Here, we're overriding the original maven tool with a different
-        maven "mvn3.5.0"
-      }
-      
-      steps {
-        echo "This time, the Maven version should be 3.3.9"
-        sh "mvn -version"
-      }
-    }
-    
-    stage('third stage') {
-      steps {
-        // Note that parallel can only be used as the only step for a stage.
-        // Also, if you want to have your parallel branches run on different
-        // nodes, you'll need control that manually with "node('some-label') {"
-        // blocks inside the parallel branches, and per-stage post won't be able
-        // to see anything from the parallel workspaces.
-        // This'll be improved by https://issues.jenkins-ci.org/browse/JENKINS-41334, 
-        // which adds Declarative-specific syntax for parallel stage execution.
-        parallel(one: {
-                  echo "I'm on the first branch!"
-                 },
-                 two: {
-                   echo "I'm on the second branch!"
-                 },
-                 three: {
-                   echo "I'm on the third branch!"
-                   echo "But you probably guessed that already."
-                 })
-      }
-    }
-     
-    stage('fourth App') {
-      agent {
-        docker {
-          image 'maven:3-alpine'
-      }
-      steps {
-        echo "This time, the Maven version should be 3.3.9"
-        sh "mvn -version"
-      }
-    }
-      
   }
   
-  
-  
-    
   post {
-    // Always runs. And it runs before any of the other post conditions.
+    // always means, well, always run.
     always {
-      // Let's wipe out the workspace before we finish!
-      deleteDir()
+      echo "Hi there"
     }
-    
-//    success {
-//      mail(from: "bob@example.com", 
-//           to: "steve@example.com", 
-//           subject: "That build passed.",
-//           body: "Nothing to see here")
-//    }
-
-//    failure {
-//      mail(from: "bob@example.com", 
-//           to: "steve@example.com", 
-//           subject: "That build failed!", 
-//           body: "Nothing to see here")
-//    }
+    // changed means when the build status is different than the previous build's status.
+    changed {
+      echo "I'm different"
+    }
+    // success, failure, unstable all run if the current build status is successful, failed, or unstable, respectively
+    success {
+      echo "I succeeded"
+      archive "**/*"
+    }
   }
-  
-  // The options directive is for configuration that applies to the whole job.
-  options {
-    // For example, we'd like to make sure we only keep 10 builds at a time, so
-    // we don't fill up our storage!
-    buildDiscarder(logRotator(numToKeepStr:'10'))
-    
-    // And we'd really like to be sure that this build doesn't hang forever, so
-    // let's time it out after an hour.
-    timeout(time: 60, unit: 'MINUTES')
-  }
-
 }
-
-//pipeline {
-//  agent {
-//    docker {
-//      image 'maven:3-alpine'
-//      label "maven-nodes"
-//      args "-v /tmp:/tmp"
-//    }
-//  }
-//  stages {
-//    stage('Build App') {
-      //agent {
-        // Overrides the top-level agent. "agent none" at the stage level does nothing.
-        //label "maven-build-node"
-      //}
-//      steps {
-//        echo "This time, the Maven version"
-//        sh "mvn -version"
-//      }
-//    }
-//  }
-//}
-
