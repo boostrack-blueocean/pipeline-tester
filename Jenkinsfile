@@ -13,7 +13,7 @@ pipeline {
                 sh 'ls -lah'
                 sh 'pwd'
                 sh 'cat requirements.txt'
-                sh '/usr/local/bin/pip install -r requirements.txt'
+                sh 'pip install -r requirements.txt'
             }
         }
     }
