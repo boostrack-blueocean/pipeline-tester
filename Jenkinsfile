@@ -6,7 +6,7 @@ pipeline {
                 sh 'python --version'
                 sh 'python test.py'
                 sh 'which pip'
-                //sh 'pip install -r requirementx.txt'
+                sh 'pip install -r requirements.txt'
             }
         }
     }
