@@ -11,3 +11,5 @@ RUN curl -L -O -H 'Cookie: oraclelicense=accept-securebackup-cookie' -k http://d
 RUN tar zxf jdk*.tar.gz
 
 RUN ls -la
+
+RUN update-alternatives --install /usr/bin/java java jdk1.8.0_131/bin/java 100
