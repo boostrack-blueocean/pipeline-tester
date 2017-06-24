@@ -6,8 +6,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'apt-get update'
-                sh 'apt-get install -y python-pip'
+                //sh 'apt-get update'
+                //sh 'apt-get install -y python-pip'
                 sh 'python --version'
                 sh 'python test.py'
                 sh 'which pip'
