@@ -100,8 +100,23 @@ pipeline {
                  })
       }
     }
+     
+    stage('fourth App') {
+      agent {
+        docker {
+          image 'maven:3-alpine'
+      }
+      steps {
+        echo "This time, the Maven version should be 3.3.9"
+        sh "mvn -version"
+      }
+    }
+      
   }
   
+  
+  
+    
   post {
     // Always runs. And it runs before any of the other post conditions.
     always {
