@@ -14,6 +14,7 @@ pipeline {
                 sh 'ls -lah'
                 sh 'pwd'
                 sh 'cat requirements.txt'
+                sh 'java -version'
                 //sh 'pip install -r requirements.txt'
             }
         }
