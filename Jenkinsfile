@@ -17,7 +17,8 @@ pipeline {
             sh 'mvn -version'
             sh 'terraform -version'
             
-          },
+          }
+          /*,
           "test": {
             sh 'python --version'
             sh 'python test.py'
@@ -30,12 +31,8 @@ pipeline {
             sh 'terraform -version'
             
           }
+          */
         )
-      }
-    }
-    stage('package') {
-      steps {
-        echo 'package'
       }
     }
   }
