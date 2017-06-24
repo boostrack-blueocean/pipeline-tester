@@ -147,8 +147,8 @@ pipeline {
           
           sh "mvn -version" 
         }
-      }
-      
+      }  
+    }
   }
   
   post {
