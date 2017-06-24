@@ -26,7 +26,7 @@ pipeline {
   // Tools - only works when *not* on docker or dockerfile agent
   tools {
     // Symbol for tool type and then name of configured tool installation
-    maven "maven3.5.0"
+    maven "mvn3.5.0"
 //    jdk "jdk8"
   }
   
@@ -60,7 +60,7 @@ pipeline {
       }
       tools {
         // Overrides tools of the same type defined globally
-        maven "maven3.5.0"
+        maven "mvn3.5.0"
       }
 //      agent {
 //        // Overrides the top-level agent. "agent none" at the stage level does nothing.
