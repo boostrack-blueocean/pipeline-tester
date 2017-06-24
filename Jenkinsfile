@@ -7,8 +7,10 @@ pipeline {
   stages {
     stage('Build App') {
       steps {
-        sh 'mvn -B clean package'
-        stash name: 'build', includes: 'target'
+        step {
+          sh 'mvn -B clean package'
+          stash name: 'build', includes: 'target'
+        }
       }
     }
   }
