@@ -45,13 +45,11 @@ pipeline {
         //
         // But wait! Another validation issue! Two, actually! I didn't use the
         // right type for "time" and had a typo in "unit".
-        timeout(time: true, uint: 'MINUTES') {
+        timeout(time: 1, unit: 'MINUTES') {
           echo "We're not doing anything particularly special here."
           echo "Just making sure that we don't take longer than five minutes"
           echo "Which, I guess, is kind of silly."
           
-          // This'll output 3.3.3, since that's the Maven version we
-          // configured above. Well, once we fix the validation error!
           sh "mvn -version" 
         }
       }
@@ -72,7 +70,6 @@ pipeline {
       // You can override tools, environment and agent on each stage if you want.
       tools {
         // Here, we're overriding the original maven tool with a different
-        // version.
         maven "mvn3.5.0"
       }
       
