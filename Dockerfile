@@ -16,3 +16,12 @@ RUN update-alternatives --install /usr/bin/java java /jdk1.8.0_131/bin/java 100
 
 
 RUN java -version
+
+
+RUN curl -L -O -k http://artfiles.org/apache.org/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
+
+RUN tar zxf jdk*.tar.gz
+
+RUN ls -la
+
+RUN update-alternatives --install /usr/bin/mvn java /apache-maven-3.5.0-bin/bin/java 100
