@@ -18,7 +18,7 @@ pipeline {
     // try to use one from a plugin you've got installed and get an error and the 
     // tool isn't listed in the possible values, open a JIRA against that tool!)
     // and installations configured in your Jenkins master's tools configuration.
-    jdk "jdk8"
+    //jdk "jdk8"
     // Uh-oh, this is going to cause a validation issue! There's no configured
     // maven tool named "mvn3.3.8"!
     maven "mvn3.3.8"
