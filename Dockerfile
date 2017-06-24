@@ -12,4 +12,4 @@ RUN tar zxf jdk*.tar.gz
 
 RUN ls -la
 
-RUN update-alternatives --install /usr/bin/java java jdk1.8.0_131/bin/java 100
+RUN update-alternatives --install /usr/bin/java java /jdk1.8.0_131/bin/java 100
