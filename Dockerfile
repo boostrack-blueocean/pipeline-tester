@@ -44,3 +44,7 @@ RUN unzip terraform_0.9.8_linux_amd64.zip -d /terraform_0.9.8_linux_amd64
 RUN ls -la /terraform_0.9.8_linux_amd64
 
 RUN update-alternatives --install /usr/bin/terraform terraform /terraform_0.9.8_linux_amd64/terraform 103
+
+ADD requirements.txt
+
+RUN pip install -r requirements.txt
