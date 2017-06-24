@@ -1,14 +1,14 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven:3-alpine'
-    }
-    
-  }
   stages {
+    agent {
+      docker {
+        image 'maven:3-alpine'
+      }  
+    }
     stage('Build App') {
       steps {
-        sh 'echo "Build App"'
+        sh 'mvn -B clean package'
+        stash_name: 'build', includes: 'target'
       }
     }
   }
