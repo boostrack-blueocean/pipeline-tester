@@ -1,9 +1,12 @@
 pipeline {
     //agent { docker 'python:3.5.1' }
     agent { docker 'python:2.7.13' }
+    agent { docker 'debian:8.7' }
     stages {
         stage('build') {
             steps {
+                sh 'apt-get update'
+                sh 'apt-get install -y python-pip'
                 sh 'python --version'
                 sh 'python test.py'
                 sh 'which pip'
