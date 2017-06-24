@@ -109,7 +109,7 @@ pipeline {
       //}
       steps {
         echo "This time, the Maven version should be 3.3.9"
-        sh "docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/cean_pipeline-tester_master-PIVAQTJ4QM7HJ5YJLF5TOXEED772VW2EYIONRQGL5USUQQOTCQLQ@2 --volumes-from c883ed0cfba7517cbd5dde8b4a5d9330ee5b031f22450364327b79b3ba1ef704 mvn clean install"
+        sh "docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/cean_pipeline-tester_master-PIVAQTJ4QM7HJ5YJLF5TOXEED772VW2EYIONRQGL5USUQQOTCQLQ@2 --volumes-from c883ed0cfba7517cbd5dde8b4a5d9330ee5b031f22450364327b79b3ba1ef704 maven:3-alpine mvn clean install"
       }
     }
       
