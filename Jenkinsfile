@@ -1,7 +1,8 @@
 pipeline {
     //agent { docker 'python:3.5.1' }
     //agent { docker 'python:2.7.13' }
-    agent { docker 'debian:8.7' }
+    //agent { docker 'debian:8.7' }
+    agent { dockerfile 'Dockerfile' }
     stages {
         stage('build') {
             steps {
