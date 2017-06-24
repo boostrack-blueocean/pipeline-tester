@@ -1,20 +1,20 @@
 // This is the full syntax for Jenkins Declarative Pipelines as of version 0.8.1.
 
 pipeline {
-  agent {
-    docker {
-      image "maven:3-alpine"
-//      label "docker-nodes"
-      args "-v /tmp:/tmp"
-    }
-  }
 //  agent {
-//    dockerfile {
-//      filename "someOtherDockerfile"
+//    docker {
+//      image "maven:3-alpine"
 //      label "docker-nodes"
 //      args "-v /tmp:/tmp"
 //    }
 //  }
+  agent {
+    dockerfile {
+      filename "Dockerfile"
+//      label "docker-nodes"
+//      args "-v /tmp:/tmp"
+    }
+  }
   
   // Environment
   environment {
