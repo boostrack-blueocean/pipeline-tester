@@ -30,6 +30,8 @@ RUN update-alternatives --install /usr/bin/mvn java /apache-maven-3.5.0/bin/mvn 
 RUN curl -L -O -k  https://services.gradle.org/distributions/gradle-4.0-bin.zip
 RUN apt-get install -y unzip
 
-RUN unzip -d gradle-4.0-bin.zip
+RUN unzip gradle-4.0-bin.zip -d /gradle-4.0
 
-RUN ls -la /
+RUN ls -la /gradle-4.0
+
+RUN update-alternatives --install /usr/bin/gradle java /gradle-4.0/bin/gradle 102
