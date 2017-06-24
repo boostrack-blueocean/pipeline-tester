@@ -24,4 +24,4 @@ RUN tar zxf apache-maven*.tar.gz
 
 RUN ls -la
 
-RUN update-alternatives --install /usr/bin/mvn java /apache-maven-3.5.0-bin/bin/java 100
+RUN update-alternatives --install /usr/bin/mvn java /apache-maven-3.5.0/bin/java 100
