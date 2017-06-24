@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh 'python --version'
                 sh 'python test.py'
+                sh 'pip install -r requirementx.txt'
             }
         }
     }
