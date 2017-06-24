@@ -130,6 +130,25 @@ pipeline {
         )
       }
     }
+    
+    
+    stage("last stage") {
+      // Every stage must have a steps block containing at least one step.
+      steps {
+        // You can use steps that take another block of steps as an argument,
+        // like this.
+        //
+        // But wait! Another validation issue! Two, actually! I didn't use the
+        // right type for "time" and had a typo in "unit".
+        timeout(time: 1, unit: 'MINUTES') {
+          echo "We're not doing anything particularly special here."
+          echo "Just making sure that we don't take longer than five minutes"
+          echo "Which, I guess, is kind of silly."
+          
+          sh "mvn -version" 
+        }
+      }
+      
   }
   
   post {
