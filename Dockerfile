@@ -22,6 +22,6 @@ RUN curl -L -O -k http://artfiles.org/apache.org/maven/maven-3/3.5.0/binaries/ap
 
 RUN tar zxf apache-maven*.tar.gz
 
-RUN ls -la
+RUN ls -la /apache-maven-3.5.0
 
-RUN update-alternatives --install /usr/bin/mvn java /apache-maven-3.5.0/bin/java 100
+RUN update-alternatives --install /usr/bin/mvn java /apache-maven-3.5.0/bin/mvn 101
