@@ -105,6 +105,7 @@ pipeline {
       agent {
         docker {
           image 'maven:3-alpine'
+        }
       }
       steps {
         echo "This time, the Maven version should be 3.3.9"
