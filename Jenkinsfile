@@ -7,7 +7,9 @@ pipeline {
                 sh 'python test.py'
                 sh 'which pip'
                 sh 'ls -lah'
-                //sh 'pip install -r requirements.txt'
+                sh 'pwd'
+                sh 'cat requirements.txt'
+                sh '/usr/local/bin/pip install -r requirements.txt'
             }
         }
     }
