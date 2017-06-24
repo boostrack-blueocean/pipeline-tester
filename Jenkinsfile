@@ -19,23 +19,18 @@ pipeline {
             
           },
           "test": {
-            sh 'echo etststs'
+            sh 'python --version'
+            sh 'python test.py'
+            sh 'which pip'
+            sh 'ls -lah'
+            sh 'pwd'
+            sh 'cat requirements.txt'
+            sh 'java -version'
+            sh 'mvn -version'
+            sh 'terraform -version'
             
           }
         )
-      }
-    }
-    stage('test') {
-      steps {
-        sh 'python --version'
-        sh 'python test.py'
-        sh 'which pip'
-        sh 'ls -lah'
-        sh 'pwd'
-        sh 'cat requirements.txt'
-        sh 'java -version'
-        sh 'mvn -version'
-        sh 'terraform -version'
       }
     }
   }
