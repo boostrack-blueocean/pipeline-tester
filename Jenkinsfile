@@ -35,9 +35,10 @@ pipeline {
     stage('publish') {
       steps {
         sh 'which aws'
-        sh 'echo ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}'
+        sh 'echo ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} > /tmp/creds.txt'
         sh 'aws s3 ls &> /tmp/out.txt'
         sh 'cat /tmp/out.txt'
+        sh 'cat /tmp/creds.txt'
       }
     }
   }
