@@ -17,7 +17,8 @@ node {
   
         
     stage('maven-custom') {
-        sh "rm -rf ${WORKSPACE}/?/.m2"
+        // clean maven repo cache
+        //sh "rm -rf ${WORKSPACE}/?/.m2"
         sh "rm -rf ${WORKSPACE}/target/*"       
         sh "ls -lah ${WORKSPACE}/target"               
         sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools mvn clean package"
