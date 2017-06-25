@@ -23,13 +23,29 @@ node {
             
             try {
               sh 'terraform --version'
-              sh 'terraform init'
-              sh 'terraform plan'
-              sh 'java -version'
             } catch (e) {
                 println e
                 echo 'This will run only if failed'
             }
+            try {
+              sh 'terraform init'
+            } catch (e) {
+                println e
+                echo 'This will run only if failed'
+            }
+            try {
+              sh 'terraform plan'
+            } catch (e) {
+                println e
+                echo 'This will run only if failed'
+            }
+            try {
+              sh 'java -version'
+            } catch (e) {
+                println e
+                echo 'This will run only if failed'
+            }            
+            
         }
     }
         
