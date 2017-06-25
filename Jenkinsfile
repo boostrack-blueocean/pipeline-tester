@@ -21,7 +21,14 @@ node {
             
             sh 'ls -lah'
             
-            sh 'terraform --version'
+            try {
+              sh 'terraform --version'
+              sh 'terraform init'
+              sh 'terraform plan'
+            } catch (e) {
+                println e
+                echo 'This will run only if failed'
+            }
         }
     }
         
