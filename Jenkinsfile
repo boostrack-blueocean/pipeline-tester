@@ -14,6 +14,18 @@ node {
 
       //app.push 'latest'
     }    
+  
+        
+    stage('maven-custom') {
+        docker.image('boostrack/debian:tools').inside {
+            
+            sh 'ls -lah'
+            
+            sh 'terraform --version'
+        }
+    }
+        
+        
         
     stage('Build') {
         docker.image('php').inside {
