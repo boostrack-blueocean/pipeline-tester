@@ -27,18 +27,16 @@ node {
         //sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `cat /etc/hostname | while read host; do docker inspect --format='{{.Id}}' $host; done` boostrack/debian:tools mvn clean package"
         sh "ls -lah ${WORKSPACE}/target"
         
-        sh 'apt-get update'
-        //sh 'python --version'
-        //sh 'python test.py'
-        //try {
-        //  sh 'pip install -r requirements.txt'
-        //} catch (e) {
-        //    println e                
-        //} finally {
-            //return 0
-        //}
+        try {
+          sh 'terraform --version'
+          sh 'terraform init'
+          sh 'terraform plan'
+        } catch (e) {
+            println e
+            echo 'This will run only if failed'
+        }
     }
-               
+/*               
     stage('Build') {
         docker.image('php').inside {
             sh 'php --version'
@@ -123,7 +121,7 @@ node {
             }
         }
     }
-
+*/
     } catch(e) {
         currentBuild.result = "FAILED"
         throw e
