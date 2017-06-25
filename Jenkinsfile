@@ -20,9 +20,21 @@ node {
 
         app.inside {
             sh 'java -version'
-            sh 'terraform -version'
-            sh 'mvn -version'
-            sh 'node --version'
+            try {
+                sh 'terraform -version'
+            } catch (Exception e) {
+                println e
+            }
+            try {
+                sh 'mvn -version'
+            } catch (Exception e) {
+                println e
+            }
+            try {
+                sh 'node --version'
+            } catch (Exception e) {
+                println e
+            }
         }
     }
 
