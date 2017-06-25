@@ -22,7 +22,7 @@ node {
         //clean previous build (mvn clean should assure this .. but better kill in over the "host")
         sh "rm -rf ${WORKSPACE}/target/*"       
         sh "ls -lah ${WORKSPACE}/target"               
-        sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools mvn clean package"
+        sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools mvn clean package >> ${WORKSPACE}/maven.log"
         // ## grab container id from hostname and inspect ##
         //sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `cat /etc/hostname | while read host; do docker inspect --format='{{.Id}}' $host; done` boostrack/debian:tools mvn clean package"
     
