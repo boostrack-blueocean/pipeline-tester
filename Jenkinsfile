@@ -15,7 +15,7 @@ pipeline {
             sh 'cat requirements.txt'
             sh 'java -version'
             //sh 'mvn -version'
-            sh 'terraform -version'
+            //sh 'terraform -version'
             sh 'terraform plan'
             
           }
