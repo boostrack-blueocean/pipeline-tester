@@ -7,6 +7,8 @@ node {
     }
     stage('List') {
         sh 'ls -lah'
-        sh 'php --version'
+        docker.image('php').inside {
+            sh 'php --version'
+        }
     }
 }
