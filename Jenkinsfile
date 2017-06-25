@@ -5,6 +5,7 @@ pipeline {
   environment {
     AWS_ACCESS_KEY_ID=credentials('aws_access_key_id')
     AWS_SECRET_ACCESS_KEY=credentials('aws_secret_access_key')
+    INHERITED_ENV = '${BUILD_NUM_ENV} is inherited'
   }
   stages {
     stage('build') {
@@ -35,6 +36,7 @@ pipeline {
       steps {
         sh 'which aws'
         sh 'aws s3 ls'
+        sh 'echo $INHERITED_ENV'
       }
     }
   }
