@@ -17,17 +17,21 @@ node {
   
         
     stage('maven-custom') {
-        //sh "docker inspect --format='{{.Id}}' c883ed0cfba7"
-        //sh "docker inspect --format='{{(index .Mounts 0).Name}}' c883ed0cfba7517cbd5dde8b4a5d9330ee5b031f22450364327b79b3ba1ef704"
-        //sh "docker inspect --format='{{(index .Mounts 0).Name}}' `docker inspect --format='{{.Id}}' c883ed0cfba7`"
-        //sh 'docker run -a STDOUT -u 1000:1000 -w /var/jenkins_home/workspace/cean_pipeline-tester_master-PIVAQTJ4QM7HJ5YJLF5TOXEED772VW2EYIONRQGL5USUQQOTCQLQ --volumes-from c883ed0cfba7517cbd5dde8b4a5d9330ee5b031f22450364327b79b3ba1ef704 boostrack/debian:tools rm -rf ?/.m2'
-        //sh 'docker run -a STDOUT -u 1000:1000 -w /var/jenkins_home/workspace/cean_pipeline-tester_master-PIVAQTJ4QM7HJ5YJLF5TOXEED772VW2EYIONRQGL5USUQQOTCQLQ --volumes-from c883ed0cfba7517cbd5dde8b4a5d9330ee5b031f22450364327b79b3ba1ef704 boostrack/debian:tools mvn clean package'
         sh "rm -rf ${WORKSPACE}/?/.m2"
         sh "rm -rf ${WORKSPACE}/target/*"       
         sh "ls -lah ${WORKSPACE}/target"               
         sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools mvn clean package"
-        sh "ls -lah ${WORKSPACE}/target"       
-
+        sh "ls -lah ${WORKSPACE}/target"
+        
+        sh 'python --version'
+        sh 'python test.py'
+        try {
+          sh 'pip install -r requirements.txt'
+        } catch (e) {
+            println e                
+        } finally {
+            //return 0
+        }
     }
                
     stage('Build') {
