@@ -25,10 +25,19 @@ node {
         sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools mvn clean package >> ${WORKSPACE}/mavenlog.log"
         // ## grab container id from hostname and inspect ##
         //sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `cat /etc/hostname | while read host; do docker inspect --format='{{.Id}}' $host; done` boostrack/debian:tools mvn clean package"
-    
+        stash name: "build-stash", includes: "target/*"
     }
         
     stage('terraform-custom') {
+        dir("first-stash") {
+          unstash "build-stash"
+        }
+
+        sh "ls -la ${pwd()}"
+
+        // And look, output directory is there under first-stash!
+        sh "ls -la ${pwd()}/target"
+        
         sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools terraform init >> ${WORKSPACE}/terraform-plan.log"
     }
 /*               
