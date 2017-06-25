@@ -1,19 +1,8 @@
 
 provider "aws" {
+#  access_key = "foo"
+#  secret_key = "bar"
   region = "eu-west-1"
 }
 
-# Find the latest available AMI that is tagged with Component = web
-data "aws_ami" "web" {
-  filter {
-    name   = "state"
-    values = ["available"]
-  }
 
-  filter {
-    name   = "tag:Component"
-    values = ["web"]
-  }
-
-  most_recent = true
-}
