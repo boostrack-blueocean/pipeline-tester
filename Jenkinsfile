@@ -1,4 +1,4 @@
-node('docker') {
+node {
     checkout scm
     stage('Build') {
         docker.image('php').inside {
