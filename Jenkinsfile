@@ -13,4 +13,11 @@ node {
             sh 'php php_info.php'
         }
     }
+    stage('Terraform') {
+        sh 'ls -lah'
+        docker.image('hashcorp/terraform:lite').inside {
+            sh 'terraform --version'
+            sh 'terraform plan'
+        }
+    }
 }
