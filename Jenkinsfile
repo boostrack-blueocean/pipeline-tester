@@ -53,7 +53,7 @@ node {
     }
     
     stage('maven') {
-        docker.dockerfile('Dockefile').inside {
+        docker.image('maven:3-alpine').inside {
             
             sh 'ls -lah'
             
