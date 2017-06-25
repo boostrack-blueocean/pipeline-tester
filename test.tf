@@ -1,4 +1,8 @@
 
+provider "aws" {
+  region = "eu-west-1"
+}
+
 # Find the latest available AMI that is tagged with Component = web
 data "aws_ami" "web" {
   filter {
