@@ -26,7 +26,7 @@ node {
                 println e
             }
             try {
-                sh 'mvn --version'
+                sh 'mvn -v'
             } catch (Exception e) {
                 println e
             }
