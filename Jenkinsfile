@@ -28,7 +28,7 @@ node {
             } catch (e) {
                 println e                
             } finally {
-                return 0
+                //return 0
             }
         }
     }
@@ -48,13 +48,19 @@ node {
     }
     stage('NodeJS') {
         docker.image('node:8.1.2').inside {
-            sh 'npm --version'
+            try {
+                sh 'npm --version'
+            } catch (e) {
+                println e
+                //echo 'This will run only if failed'
+                //return 0
+            }
             try {
               sh 'npm install'
             } catch (e) {
                 println e
                 //echo 'This will run only if failed'
-                return 0
+                //return 0
             }
         }
     }
@@ -79,7 +85,7 @@ node {
                 //echo 'This will run only if failed'
                 
             } finally {
-                return 0
+                //return 0
             }
         }
     }
