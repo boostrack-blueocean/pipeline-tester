@@ -57,5 +57,5 @@ RUN apt-get -y install nodejs
 RUN node -v
 
 ADD test.sh /test.sh
-RUN chmod +x /test.sh
+RUN chmod 600 /test.sh
 
