@@ -4,6 +4,7 @@ pipeline {
   }
   stages {
     stage('build') {
+      dir ($WORKSPACE) { 
       steps {
         parallel(
           "build": {
@@ -36,6 +37,7 @@ pipeline {
           }
           */
         )
+      }
       }
     }
   }
