@@ -25,12 +25,11 @@ node {
         sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools mvn clean package"
         // ## grab container id from hostname and inspect ##
         //sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `cat /etc/hostname | while read host; do docker inspect --format='{{.Id}}' $host; done` boostrack/debian:tools mvn clean package"
-        sh "ls -lah ${WORKSPACE}/target"
+        sh "ls -lah ${WORKSPACE}/target"      
+    }
         
-        sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools terraform plan >> ${WORKSPACE}/terraform-plan.log "
-      
-        
-      
+    stage('terraform-custom') {
+        sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `docker inspect --format='{{.Id}}' c883ed0cfba7` boostrack/debian:tools terraform plan >> ${WORKSPACE}/terraform-plan.log"
     }
 /*               
     stage('Build') {
