@@ -16,7 +16,7 @@ pipeline {
             sh 'java -version'
             //sh 'mvn -version'
             //sh 'terraform -version'
-            dir ($WORKSPACE) { 
+            dir ('$WORKSPACE') { 
 
               sh 'test.sh'
             }
