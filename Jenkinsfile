@@ -37,7 +37,12 @@ node {
     stage('NodeJS') {
         docker.image('node:8.1.2').inside {
             sh 'npm --version'
-            sh 'npm install'
+            try {
+              sh 'npm install'
+            } catch (e) {
+                println e
+                echo 'This will run only if failed'
+            }
         }
     }
  /*
