@@ -18,6 +18,8 @@ RUN java -version
 
 RUN curl -L -O -k   https://releases.hashicorp.com/terraform/0.9.8/terraform_0.9.8_linux_amd64.zip
 
+RUN apt-get -y unzip
+
 RUN unzip terraform_0.9.8_linux_amd64.zip -d /terraform_0.9.8_linux_amd64
 
 RUN ls -la /terraform_0.9.8_linux_amd64
