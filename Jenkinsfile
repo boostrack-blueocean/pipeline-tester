@@ -34,6 +34,7 @@ pipeline {
     stage('publish') {
       steps {
         sh 'which aws'
+        sh 'aws s3 ls'
       }
     }
   }
