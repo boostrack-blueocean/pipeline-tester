@@ -27,6 +27,7 @@ node {
         //sh "docker run -a STDOUT -u 1000:1000 -w ${WORKSPACE} --volumes-from `cat /etc/hostname | while read host; do docker inspect --format='{{.Id}}' $host; done` boostrack/debian:tools mvn clean package"
         sh "ls -lah ${WORKSPACE}/target"
         
+        sh "which terraform"
         try {
           sh 'terraform --version'
           sh 'terraform init'
