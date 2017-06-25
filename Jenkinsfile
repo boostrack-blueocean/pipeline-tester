@@ -16,7 +16,7 @@ pipeline {
             sh 'java -version'
             //sh 'mvn -version'
             //sh 'terraform -version'
-            sh 'aws help'
+            sh 'aws --version'
             sh 'terraform init'
 //            sh 'terraform plan'
             
