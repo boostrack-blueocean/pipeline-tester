@@ -2,7 +2,7 @@ node {
     
     def branchVersion = ""
     try {
-    buildNotify 'STARTED', 'my-build-channel'
+//    buildNotify 'STARTED', 'my-build-channel'
 
     checkout scm
     stage('Build') {
@@ -81,6 +81,6 @@ node {
         currentBuild.result = "FAILED"
         throw e
     } finally {
-        buildNotify currentBuild.result, 'my-build-channel'
+       // buildNotify currentBuild.result, 'my-build-channel'
     }
 }
