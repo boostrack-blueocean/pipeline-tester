@@ -61,7 +61,7 @@ node {
             }
             
             try {
-                sh 'mvn install -f ${WORKSPACE}/pom.xml --debug'
+                sh 'mvn package'
             } catch (e) {
                 println e
                 //echo 'This will run only if failed'
