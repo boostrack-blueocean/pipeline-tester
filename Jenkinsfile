@@ -40,7 +40,8 @@ node {
             sh 'python --version'
             sh 'python test.py'
         }
-    }    
+    }  
+ /*
     post {
         always {
             echo 'This will always run'
@@ -59,5 +60,5 @@ node {
             echo 'For example, if the Pipeline was previously failing but is now successful'
         }
     }
-
+*/
 }
