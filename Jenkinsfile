@@ -34,13 +34,12 @@ node {
 
         }
     }
-    stage('Node') {
-        sh 'ls -lah'
-        docker.image('python:2.7.13').inside {
-            sh 'python --version'
-            sh 'python test.py'
+    stage('NodeJS') {
+        docker.image('node:8.1.2').inside {
+            sh 'npm --version'
+            sh 'npm install'
         }
-    }  
+    }
  /*
     post {
         always {
