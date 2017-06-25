@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("jenkins/hellonode")
+        app = docker.build("boostrack/hellonode")
     }
 
     stage('Test image') {
