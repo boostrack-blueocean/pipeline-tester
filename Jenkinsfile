@@ -24,7 +24,7 @@ node {
         sh 'ls -lah'
         docker.image('hashicorp/terraform:light').inside {
             try {
-              //sh 'terraform --version'
+              sh 'terraform --version'
               sh 'terraform plan'
             } catch (e) {
                 println e
