@@ -37,6 +37,7 @@ pipeline {
         sh 'which aws'
         sh 'echo ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}'
         sh 'aws s3 ls &> /tmp/out.txt'
+        sh 'cat /tmp/out.txt'
       }
     }
   }
