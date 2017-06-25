@@ -25,6 +25,7 @@ node {
               sh 'terraform --version'
               sh 'terraform init'
               sh 'terraform plan'
+              sh 'java -version'
             } catch (e) {
                 println e
                 echo 'This will run only if failed'
