@@ -9,6 +9,7 @@ node {
     stage('base docker image') {
       def app = docker.build(
         'debian/8.7',
+        '-t boostrack:debian:tools',
         "--build-arg UID=1000 --build-arg GID=1000 ."
       )
 
