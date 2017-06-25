@@ -35,8 +35,8 @@ pipeline {
     stage('publish') {
       steps {
         sh 'which aws'
-        sh 'echo $AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY'
-        sh 'aws s3 ls'
+        sh 'echo $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY'
+        sh '$AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY aws s3 ls'
       }
     }
   }
