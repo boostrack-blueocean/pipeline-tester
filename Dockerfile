@@ -18,7 +18,7 @@ RUN java -version
 
 RUN curl -L -O -k   https://releases.hashicorp.com/terraform/0.9.8/terraform_0.9.8_linux_amd64.zip
 
-RUN apt-get -y install unzip libyaml-dev
+RUN apt-get -y install unzip
 
 RUN unzip terraform_0.9.8_linux_amd64.zip -d /terraform_0.9.8_linux_amd64
 
@@ -28,6 +28,7 @@ RUN update-alternatives --install /usr/bin/terraform terraform /terraform_0.9.8_
 
 ADD requirements.txt /requirements.txt
 
+# libyaml-dev
 RUN pip install -r /requirements.txt
 
 RUN apt-get -y install python-software-properties
