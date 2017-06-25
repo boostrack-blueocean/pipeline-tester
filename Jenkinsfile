@@ -5,7 +5,7 @@ pipeline {
   environment {
     AWS_ACCESS_KEY_ID=credentials('aws_access_key_id')
     AWS_SECRET_ACCESS_KEY=credentials('aws_secret_access_key')
-    INHERITED_ENV = ${BUILD_NUM_ENV}
+    INHERITED_ENV = "${BUILD_NUM_ENV}"
   }
   stages {
     stage('build') {
