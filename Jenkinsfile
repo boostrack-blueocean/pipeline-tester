@@ -9,7 +9,7 @@ node {
     stage('base docker image') {
       def app = docker.build(
         'boostrack/debian:tools',
-        "--build-arg UID=1000 --build-arg GID=1000"
+        "--build-arg UID=1000 --build-arg GID=1000 ."
       )
 
       //app.push 'latest'
