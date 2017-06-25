@@ -9,6 +9,7 @@ node {
         sh 'ls -lah'
         docker.image('php').inside {
             sh 'php --version'
+            sh 'ls -lah'
         }
     }
 }
