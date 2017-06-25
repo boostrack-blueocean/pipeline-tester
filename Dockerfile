@@ -48,3 +48,10 @@ RUN update-alternatives --install /usr/bin/terraform terraform /terraform_0.9.8_
 ADD requirements.txt /requirements.txt
 
 RUN pip install -r /requirements.txt
+
+RUN apt-get -y install python-software-properties
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+
+RUN apt-get -y install nodejs
+
+RUN node -v
