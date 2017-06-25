@@ -35,7 +35,7 @@ pipeline {
     stage('publish') {
       steps {
         sh 'which aws'
-        sh 'aws s3 ls'
+        //sh 'aws s3 ls'
         sh 'echo $INHERITED_ENV'
       }
     }
