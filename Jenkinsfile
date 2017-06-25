@@ -23,6 +23,13 @@ node {
         docker.image('python:2.7.13').inside {
             sh 'python --version'
             sh 'python test.py'
+            try {
+              sh 'pip install -r requirements.txt'
+            } catch (e) {
+                println e                
+            } finally {
+                return 0
+            }
         }
     }
     stage('Terraform') {
