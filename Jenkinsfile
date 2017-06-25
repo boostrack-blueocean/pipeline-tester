@@ -42,6 +42,7 @@ node {
             } catch (e) {
                 println e
                 echo 'This will run only if failed'
+                return 0
             }
         }
     }
