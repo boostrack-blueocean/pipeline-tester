@@ -16,13 +16,13 @@ pipeline {
             sh 'java -version'
             //sh 'mvn -version'
             //sh 'terraform -version'
-            dir ('$WORKSPACE') { 
+//            dir ('$WORKSPACE') { 
 
-              sh 'test.sh'
-            }
-            sh 'terraform init'
+//              sh 'test.sh'
+//            }
+//            sh 'terraform init'
 //            sh 'terraform plan'
-            returnStatus 0
+//            returnStatus 0
           }
           /*,
           "test": {
