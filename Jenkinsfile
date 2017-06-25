@@ -27,5 +27,10 @@ pipeline {
         )
       }
     }
+    stage('publish') {
+      steps {
+        sh 'aws s3 ls '
+      }
+    }
   }
 }
