@@ -1,4 +1,9 @@
 node {
+    
+    def branchVersion = ""
+    try {
+    buildNotify 'STARTED', 'my-build-channel'
+
     checkout scm
     stage('Build') {
         docker.image('php').inside {
@@ -72,4 +77,10 @@ node {
         }
     }
 
+    } catch(e) {
+        currentBuild.result = "FAILED"
+        throw e
+    } finally {
+        buildNotify currentBuild.result, 'my-build-channel'
+    }
 }
