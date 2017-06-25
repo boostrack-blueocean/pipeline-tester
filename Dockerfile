@@ -14,28 +14,7 @@ RUN ls -la
 
 RUN update-alternatives --install /usr/bin/java java /jdk1.8.0_131/bin/java 100
 
-
 RUN java -version
-
-
-RUN curl -L -O -k http://artfiles.org/apache.org/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
-
-RUN tar zxf apache-maven*.tar.gz
-
-RUN ls -la /apache-maven-3.5.0
-
-RUN update-alternatives --install /usr/bin/mvn mvn /apache-maven-3.5.0/bin/mvn 101
-
-
-RUN curl -L -O -k  https://services.gradle.org/distributions/gradle-4.0-bin.zip
-RUN apt-get install -y unzip
-
-RUN unzip gradle-4.0-bin.zip -d .
-
-RUN ls -la /gradle-4.0
-
-RUN update-alternatives --install /usr/bin/gradle gradle /gradle-4.0/bin/gradle 102
-
 
 RUN curl -L -O -k   https://releases.hashicorp.com/terraform/0.9.8/terraform_0.9.8_linux_amd64.zip
 
@@ -56,6 +35,24 @@ RUN apt-get -y install nodejs
 
 RUN node -v
 
-ADD test.sh /test.sh
-RUN chmod 600 /test.sh
+
+RUN curl -L -O -k http://artfiles.org/apache.org/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
+
+RUN tar zxf apache-maven*.tar.gz
+
+RUN ls -la /apache-maven-3.5.0/
+
+RUN update-alternatives --install /usr/bin/mvn mvn /apache-maven-3.5.0/bin/mvn 101
+
+RUN mvn -v
+
+
+#RUN curl -L -O -k  https://services.gradle.org/distributions/gradle-4.0-bin.zip
+#RUN apt-get install -y unzip
+#RUN unzip gradle-4.0-bin.zip -d .
+#RUN ls -la /gradle-4.0
+#RUN update-alternatives --install /usr/bin/gradle gradle /gradle-4.0/bin/gradle 102
+
+#ADD test.sh /test.sh
+#RUN chmod 600 /test.sh
 
