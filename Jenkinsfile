@@ -5,4 +5,8 @@ node {
             sh 'php --version'
         }
     }
+    stage('List') {
+        sh 'ls -lah'
+        sh 'php --version'
+    }
 }
