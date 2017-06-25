@@ -41,11 +41,25 @@ node {
               sh 'npm install'
             } catch (e) {
                 println e
-                echo 'This will run only if failed'
+                //echo 'This will run only if failed'
                 return 0
             }
         }
     }
+    
+    stage('maven') {
+        docker.image(''maven:3.3.3').inside {
+            sh 'mvn --version'
+            try {
+              sh 'mvn install'
+            } catch (e) {
+                println e
+                //echo 'This will run only if failed'
+                return 0
+            }
+        }
+    }
+ 
  /*
     post {
         always {
