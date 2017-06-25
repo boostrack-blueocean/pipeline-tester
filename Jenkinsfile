@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("boostrack/hellonode")
+        app = docker.build("boostrack/debian-tools")
     }
 
     stage('Test image') {
@@ -26,7 +26,7 @@ node {
                 println e
             }
             try {
-                sh 'mvn -version'
+                sh 'mvn --version'
             } catch (Exception e) {
                 println e
             }
