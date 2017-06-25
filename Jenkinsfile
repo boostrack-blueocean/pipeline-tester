@@ -50,6 +50,8 @@ node {
     stage('maven') {
         docker.image('maven:3.3.3').inside {
             
+            sh 'ls -lah'
+            
             try {
               sh 'mvn --version'
             } catch (e) {
@@ -59,7 +61,7 @@ node {
             }
             
             try {
-              sh 'mvn install'
+              sh 'mvn install -f /pom.xml'
             } catch (e) {
                 println e
                 //echo 'This will run only if failed'
