@@ -29,7 +29,7 @@ pipeline {
     }
     stage('publish') {
       steps {
-        sh 'aws s3 ls '
+        sh 'which aws'
       }
     }
   }
