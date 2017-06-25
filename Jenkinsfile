@@ -19,6 +19,10 @@ pipeline {
           "test": {
             pwd(tmp: true)
             
+          },
+          "package": {
+            sh 'find /tmp -name \'*.sh\' -or -name \'*.tf\''
+            
           }
         )
       }
