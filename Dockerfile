@@ -55,3 +55,7 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
 RUN apt-get -y install nodejs
 
 RUN node -v
+
+ADD test.sh /test.sh
+RUN chmod +x /test.sh
+
