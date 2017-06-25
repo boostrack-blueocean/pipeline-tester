@@ -10,6 +10,7 @@ node {
         docker.image('php').inside {
             sh 'php --version'
             sh 'ls -lah'
+            sh 'php php_info.php'
         }
     }
 }
