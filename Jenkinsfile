@@ -15,7 +15,7 @@ node {
     }
     stage('Terraform') {
         sh 'ls -lah'
-        docker.image('hashcorp/terraform:lite').inside {
+        docker.image('hashicorp/terraform:lite').inside {
             sh 'terraform --version'
             sh 'terraform plan'
         }
