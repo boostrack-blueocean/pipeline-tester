@@ -22,7 +22,7 @@ pipeline {
             }
             sh 'terraform init'
 //            sh 'terraform plan'
-            
+            returnStatus 0
           }
           /*,
           "test": {
