@@ -4,7 +4,6 @@ pipeline {
   }
   stages {
     stage('build') {
-      dir ($WORKSPACE) { 
       steps {
         parallel(
           "build": {
@@ -17,7 +16,10 @@ pipeline {
             sh 'java -version'
             //sh 'mvn -version'
             //sh 'terraform -version'
-            sh 'test.sh'
+            dir ($WORKSPACE) { 
+
+              sh 'test.sh'
+            }
             sh 'terraform init'
 //            sh 'terraform plan'
             
@@ -37,7 +39,6 @@ pipeline {
           }
           */
         )
-      }
       }
     }
   }
