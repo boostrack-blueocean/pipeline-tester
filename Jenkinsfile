@@ -34,7 +34,7 @@ pipeline {
     stage('publish') {
       steps {
         sh 'which aws'
-        sh 'aws s3 ls'
+        sh 'echo $AWS_ACCESS_KEY_ID'
       }
     }
   }
