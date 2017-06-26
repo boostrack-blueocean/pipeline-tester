@@ -15,8 +15,7 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        
-        sh 'docker run --rm -v "$WORKSPACE/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana  golang:1.8 go run build.go setup'
+        sh 'docker run -a STDOUT -u 1000:1000 -w /var/jenkins_home/workspace/cean_pipeline-tester_master-PIVAQTJ4QM7HJ5YJLF5TOXEED772VW2EYIONRQGL5USUQQOTCQLQ/grafana --volumes-from c883ed0cfba7517cbd5dde8b4a5d9330ee5b031f22450364327b79b3ba1ef704 golang:1.8 go run build.go setup'       
 //        sh 'docker run --rm -v "$WORKSPACE/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana  golang:1.8 go run build.go build'
 
 //        sh 'docker run -v "$WORKSPACE/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana node:6.11 npm install -g yarn'
