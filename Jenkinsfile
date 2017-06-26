@@ -16,12 +16,12 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
         
-        sh 'docker run --rm -v "$PWD/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana  golang:1.8 go run build.go setup'
-        sh 'docker run --rm -v "$PWD/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana  golang:1.8 go run build.go build'
+        sh 'docker run --rm -v "$WORKSPACE/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana  golang:1.8 go run build.go setup'
+//        sh 'docker run --rm -v "$WORKSPACE/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana  golang:1.8 go run build.go build'
 
-        sh 'docker run -v "$PWD/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana node:6.11 npm install -g yarn'
-        sh 'docker run -v "$PWD/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana node:6.11 yarn install --pure-lockfile'
-        sh 'docker run -v "$PWD/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana node:6.11 npm run build'
+//        sh 'docker run -v "$WORKSPACE/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana node:6.11 npm install -g yarn'
+//        sh 'docker run -v "$WORKSPACE/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana node:6.11 yarn install --pure-lockfile'
+//        sh 'docker run -v "$WORKSPACE/grafana":/go/src/github.com/grafana/grafana -w /go/src/github.com/grafana/grafana node:6.11 npm run build'
 
 
 //        app = docker.build("boostrack/debian-tools")
